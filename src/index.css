@@ -1,0 +1,361 @@
+@import 'tailwindcss';
+
+/* ============================================================
+   THEME TOKENS (Tailwind v4 @theme)
+   ============================================================ */
+@theme {
+  --color-bg: #02041e;
+  --color-bg-soft: #060828;
+  --color-surface: #0a0f38;
+  --color-neon: #0033ff;   /* electric blue */
+  --color-neon-2: #977dff; /* violet purple */
+  --color-neon-3: #ffccf2; /* soft pink */
+  --color-ink: #ede8ff;
+  --color-muted: #8b85b0;
+
+  --font-display: 'Outfit', 'Cairo', sans-serif;
+  --font-body: 'Tajawal', 'Cairo', sans-serif;
+}
+
+/* ============================================================
+   BASE
+   ============================================================ */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --neon-rgb: 0, 51, 255;
+  --neon-2-rgb: 151, 125, 255;
+  --neon-3-rgb: 255, 204, 242;
+  --font-primary-ar: 'Tajawal', 'Cairo', sans-serif;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  background: var(--color-bg);
+  color: var(--color-ink);
+  font-family: var(--font-body);
+  overflow: hidden; /* the inner scroll-container handles scrolling */
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Hide the native cursor on devices that have a fine pointer (desktop) */
+@media (pointer: fine) {
+  * {
+    cursor: none !important;
+  }
+}
+
+/* ============================================================
+   SNAP SCROLL CONTAINER
+   ============================================================ */
+#scroll-container {
+  height: 100dvh;
+  width: 100%;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  scroll-snap-type: y mandatory;
+  scroll-behavior: smooth;
+  scrollbar-width: none; /* Firefox */
+}
+#scroll-container::-webkit-scrollbar {
+  display: none;
+}
+
+.snap-section {
+  min-height: 100dvh;
+  width: 100%;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+
+/* ============================================================
+   GLASSMORPHISM
+   ============================================================ */
+.glass {
+  background: rgba(255, 255, 255, 0.04);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow:
+    0 8px 40px rgba(0, 0, 0, 0.45),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+
+.glass-strong {
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(28px) saturate(140%);
+  -webkit-backdrop-filter: blur(28px) saturate(140%);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* ============================================================
+   NEON HELPERS
+   ============================================================ */
+.text-gradient {
+  background: linear-gradient(110deg, #f2e6ee 0%, #977dff 50%, #0033ff 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.neon-glow {
+  box-shadow:
+    0 0 16px rgba(0, 51, 255, 0.35),
+    0 0 40px rgba(151, 125, 255, 0.2);
+}
+
+.grain::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.04;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* Ambient animated aurora blobs */
+.aurora {
+  position: absolute;
+  border-radius: 999px;
+  filter: blur(90px);
+  opacity: 0.3;
+  pointer-events: none;
+  will-change: transform;
+}
+
+@keyframes float-slow {
+  0%, 100% { transform: translate3d(0, 0, 0); }
+  50% { transform: translate3d(0, -28px, 0); }
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+/* ============================================================
+   HALF-WIDTH LARGE GRID (subtle, large squares)
+   - Default: right half of the viewport
+   - Use `.grid-left` to position on the left instead
+ ============================================================ */
+.half-grid {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  right: 0; /* default to right half */
+  width: 50%;
+  pointer-events: none;
+  z-index: 0;
+  /* clearer large squares using repeating gradients */
+  background-image:
+    repeating-linear-gradient(
+      to right,
+      rgba(255,255,255,0.10),
+      rgba(255,255,255,0.10) 2px,
+      transparent 2px,
+      transparent 160px
+    ),
+    repeating-linear-gradient(
+      to bottom,
+      rgba(255,255,255,0.10),
+      rgba(255,255,255,0.10) 2px,
+      transparent 2px,
+      transparent 160px
+    );
+  background-size: 160px 160px;
+  opacity: 0.12;
+}
+
+.half-grid.grid-left { left: 0; right: auto; }
+
+@media (max-width: 768px) {
+  .half-grid {
+    width: 100%;
+    left: 0;
+    right: 0;
+    background-size: 100px 100px;
+    opacity: 0.08;
+  }
+}
+
+/* Full-site grid variant */
+.site-grid {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background-image:
+    repeating-linear-gradient(
+      to right,
+      rgba(255,255,255,0.10),
+      rgba(255,255,255,0.10) 2px,
+      transparent 2px,
+      transparent 160px
+    ),
+    repeating-linear-gradient(
+      to bottom,
+      rgba(255,255,255,0.10),
+      rgba(255,255,255,0.10) 2px,
+      transparent 2px,
+      transparent 160px
+    );
+  background-size: 160px 160px;
+  opacity: 0.08;
+}
+
+@media (max-width: 768px) {
+  .site-grid { background-size: 100px 100px; opacity: 0.06; }
+}
+
+/* Animation removed per user request (static grid). */
+
+/* Lightbox styles for portfolio viewer */
+.lightbox-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(3,6,12,0.75);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 60;
+  padding: 2rem;
+}
+.lightbox-viewport {
+  position: relative;
+  max-width: 95%;
+  max-height: 90%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.lightbox-img {
+  max-width: 100%;
+  max-height: 100%;
+  border-radius: 12px;
+  box-shadow: 0 30px 80px rgba(0,0,0,0.6);
+}
+.lightbox-close,
+.lightbox-prev,
+.lightbox-next {
+  position: absolute;
+  background: rgba(0,0,0,0.5);
+  border: 1px solid rgba(255,255,255,0.06);
+  color: white;
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+.lightbox-close { top: -18px; right: -18px; }
+.lightbox-prev { left: -60px; }
+.lightbox-next { right: -60px; }
+
+@media (max-width: 768px) {
+  .lightbox-prev { left: 8px; }
+  .lightbox-next { right: 8px; }
+  .lightbox-close { top: 8px; right: 8px; }
+}
+
+/* ============================================================
+   PORTFOLIO CARD — ROTATING NEON BORDER
+   ============================================================ */
+.neon-card-border {
+  position: relative;
+  padding: 2px;
+  overflow: hidden;
+  border-radius: 1rem;
+  isolation: isolate;
+  box-shadow: 0 0 18px rgba(151, 125, 255, 0.18), 0 0 40px rgba(0, 51, 255, 0.12);
+}
+.neon-card-border::before {
+  content: '';
+  position: absolute;
+  width: 300%;
+  height: 300%;
+  top: -100%;
+  left: -100%;
+  background: conic-gradient(
+    from 0deg,
+    transparent 0deg,
+    transparent 60deg,
+    rgba(151, 125, 255, 1)    100deg,
+    rgba(0,  51, 255, 1)      140deg,
+    rgba(55, 0, 117, 0.8)  165deg,
+    rgba(151, 125, 255, 1)    195deg,
+    transparent 235deg,
+    transparent 360deg
+  );
+  animation: neon-card-spin 3.5s linear infinite;
+  will-change: transform;
+  z-index: 0;
+}
+.neon-card-inner {
+  position: relative;
+  z-index: 1;
+  border-radius: calc(1rem - 2px);
+  overflow: hidden;
+}
+@keyframes neon-card-spin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes pulse-green {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(52,211,153,0.7); }
+  50%       { box-shadow: 0 0 0 6px rgba(52,211,153,0); }
+}
+
+/* Floating icons over portrait */
+.floating-icon {
+  position: absolute;
+  width: 48px;
+  height: 48px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transform-origin: center;
+  opacity: 0.98;
+  filter: drop-shadow(0 6px 18px rgba(0,0,0,0.6));
+}
+
+.floating-icon svg { width: 100%; height: 100%; }
+
+.floating-icon img { width: 100%; height: 100%; object-fit: contain; display: block; }
+
+.floating-icon.icon-1 { top: 14%; left: 12%; animation: floatSmall 5.6s ease-in-out infinite; width:52px; height:52px }
+.floating-icon.icon-2 { top: 20%; right: 12%; animation: floatSmall 6.2s ease-in-out infinite; width:46px; height:46px }
+.floating-icon.icon-3 { bottom: 16%; left: 14%; animation: floatSmall 5.2s ease-in-out infinite; width:44px; height:44px }
+
+@keyframes floatSmall {
+  0% { transform: translateY(0) rotate(0deg); }
+  25% { transform: translateY(-6px) rotate(-3deg); }
+  50% { transform: translateY(0) rotate(0deg); }
+  75% { transform: translateY(6px) rotate(3deg); }
+  100% { transform: translateY(0) rotate(0deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .floating-icon { animation: none !important; }
+}

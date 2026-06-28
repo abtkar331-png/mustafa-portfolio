@@ -224,7 +224,7 @@ function PortraitPlaceholder() {
 
   return (
     <img
-      src="/portrait.png"
+      src={`${import.meta.env.BASE_URL}portrait.png`}
       alt="Mustafa"
       onError={() => setFailed(true)}
       className="relative z-10 h-full w-full scale-110 object-cover object-top transition-transform duration-700 hover:scale-100"
@@ -278,9 +278,9 @@ function PortraitMesh() {
 function FloatingIcons() {
   return (
     <div className="pointer-events-none absolute inset-0 z-30">
-      <img src="/illustrator.png" alt="Illustrator" className="floating-icon icon-1" />
-      <img src="/lightroom.png" alt="Lightroom" className="floating-icon icon-2" />
-      <img src="/figma.png" alt="Figma" className="floating-icon icon-3" />
+      <img src={`${import.meta.env.BASE_URL}illustrator.png`} alt="Illustrator" className="floating-icon icon-1" />
+      <img src={`${import.meta.env.BASE_URL}lightroom.png`} alt="Lightroom" className="floating-icon icon-2" />
+      <img src={`${import.meta.env.BASE_URL}figma.png`} alt="Figma" className="floating-icon icon-3" />
     </div>
   )
 }

@@ -4,19 +4,21 @@ import { X, ChevronLeft, ChevronRight, ZoomIn, ZoomOut, RotateCcw, Eye } from 'l
 import BeforeAfterSlider from '../components/BeforeAfterSlider'
 import WavyArrow from '../components/WavyArrow'
 
+const b = import.meta.env.BASE_URL
+
 /* ضع صورك في مجلد public واستبدل المسارات هنا */
 const works = [
-  { src: '/work1.png', tag: 'Retouch' },
-  { src: '/work2.png', tag: 'Color Grade' },
-  { src: '/work3.png', tag: 'Manipulation' },
-  { src: '/work4.png', tag: 'Poster' },
-  { src: '/work5.png', tag: 'Portrait' },
+  { src: `${b}work1.png`, tag: 'Retouch' },
+  { src: `${b}work2.png`, tag: 'Color Grade' },
+  { src: `${b}work3.png`, tag: 'Manipulation' },
+  { src: `${b}work4.png`, tag: 'Poster' },
+  { src: `${b}work5.png`, tag: 'Portrait' },
 ]
 
 /* بوسترات إعلانية عمودية — ضعهم في public باسم poster1.png و poster2.png */
 const posters = [
-  { src: '/poster1.png', tag: 'Ad Poster' },
-  { src: '/poster2.png', tag: 'Ad Poster' },
+  { src: `${b}poster1.png`, tag: 'Ad Poster' },
+  { src: `${b}poster2.png`, tag: 'Ad Poster' },
 ]
 
 /* ─── Premium Lightbox ─────────────────────────────────── */
@@ -271,8 +273,8 @@ export default function Portfolio() {
           >
             <div className="neon-card-inner glass h-full p-1">
               <BeforeAfterSlider
-                before="/before.png"
-                after="/after.png"
+                before={`${b}before.png`}
+                after={`${b}after.png`}
                 beforeLabel="قبل · Before"
                 afterLabel="بعد · After"
               />

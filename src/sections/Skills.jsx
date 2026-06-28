@@ -15,15 +15,15 @@ const skills = [
 ]
 
 const primaryBadges = [
-  { src: '/photoshop.png', label: 'Adobe Photoshop', glow: '#31A8FF' },
-  { src: '/illustrator.png', label: 'Adobe Illustrator', glow: '#FF9A00' },
-  { src: '/premiere-pro.png', label: 'Adobe Premiere Pro', glow: '#9A7CFF' },
-  { src: '/after-effects.png', label: 'After Effects', glow: '#C79CFF' },
+  { src: `${import.meta.env.BASE_URL}photoshop.png`, label: 'Adobe Photoshop', glow: '#31A8FF' },
+  { src: `${import.meta.env.BASE_URL}illustrator.png`, label: 'Adobe Illustrator', glow: '#FF9A00' },
+  { src: `${import.meta.env.BASE_URL}premiere-pro.png`, label: 'Adobe Premiere Pro', glow: '#9A7CFF' },
+  { src: `${import.meta.env.BASE_URL}after-effects.png`, label: 'After Effects', glow: '#C79CFF' },
 ]
 
 const secondaryBadges = [
-  { src: '/lightroom.png', label: 'Adobe Lightroom', glow: '#4DC3FF' },
-  { src: '/figma.png', label: 'Figma', glow: '#A259FF' },
+  { src: `${import.meta.env.BASE_URL}lightroom.png`, label: 'Adobe Lightroom', glow: '#4DC3FF' },
+  { src: `${import.meta.env.BASE_URL}figma.png`, label: 'Figma', glow: '#A259FF' },
 ]
 
 export default function Skills() {

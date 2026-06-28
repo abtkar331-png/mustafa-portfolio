@@ -217,7 +217,7 @@ export default function Contact() {
             <div className="relative overflow-hidden rounded-3xl border border-white/[0.07] bg-white/[0.015] shadow-2xl backdrop-blur-xl" style={{ padding: '32px' }}>
               {/* Personal signature — top-right corner of card */}
               <img
-                src="/111.png"
+                src={`${import.meta.env.BASE_URL}111.png`}
                 alt="Mustafa signature"
                 className="pointer-events-none absolute select-none"
                 style={{
